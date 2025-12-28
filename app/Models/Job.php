@@ -26,6 +26,10 @@ class Job{
     }
 
     public static function find(int $id): array{
-        return Arr::first(static::all(), fn($job) => $job['id']===(int)$id);
+        $job = Arr::first(static::all(), fn($job) => $job['id']===(int)$id);
+        if (! $job){
+            abort(404);
+        }
+        return $job;
     }
 }
