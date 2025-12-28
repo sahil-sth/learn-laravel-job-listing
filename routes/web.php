@@ -2,7 +2,6 @@
 
 use App\Models\Job;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Arr;
 
 Route::get('/', function () {
     return view("home");
