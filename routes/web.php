@@ -9,7 +9,7 @@ Route::get('/', function () {
 
 Route::get('/jobs', function () {
    $jobs = Job::with("employer")->paginate(3);
-    return view('jobs', ["jobs"=>$jobs]);
+    return view('jobs.index', ["jobs"=>$jobs]);
 });
 
 Route::get('/about', function () {
@@ -20,8 +20,11 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
+Route::get("/jobs/create", function(){
+    return view("jobs.create");
+});
 
 Route::get('/jobs/{id}', function ($id) {
     $job = Job::find($id);
-    return view("job", ["job" => $job]);
+    return view("jobs.show", ["job" => $job]);
 });
