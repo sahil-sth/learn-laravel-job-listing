@@ -25,7 +25,13 @@ Route::get("/jobs/create", function(){
 });
 
 Route::post("/jobs", function(){
-    dd("Hello from POST route");
+    Job::create([
+        "title" => request("title"), 
+        "salary" => request("salary"), 
+        "employer_id" => 1
+    ]);
+
+    return redirect("/jobs");
 });
 
 Route::get('/jobs/{id}', function ($id) {
