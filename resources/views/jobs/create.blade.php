@@ -24,9 +24,13 @@
                   name="title"
                   placeholder="Shift Worker"
                   class="block min-w-0 grow bg-transparent py-1.5 pr-3 pl-1 px-3 text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-sm/6"
+                  required
                 />
               </div>
             </div>
+            @error('title')
+              <p class="mt-4 text-xs font-semibold text-red-500">{{ $message }}</p>
+            @enderror
           </div>
 
           <!-- Salary -->
@@ -43,14 +47,29 @@
                   name="salary"
                   placeholder="$50,000"
                   class="block min-w-0 grow bg-transparent py-1.5 pr-3 pl-1 px-3 text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-sm/6"
+                  required
                 />
               </div>
             </div>
+            @error('salary')
+              <p class="mt-4 text-xs font-semibold text-red-500">{{ $message }}</p>
+            @enderror
           </div>
         </div>
       </div>
     </div>
-
+    {{-- For group error messages --}}
+    {{--
+      <div class="mt-10">
+      @if ($errors->any())
+      <ul>
+      @foreach ($errors->all() as $error)
+      <li class="text-red-500 italic">{{ $error }}</li>
+      @endforeach
+      </ul>
+      @endif
+      </div>
+    --}}
     <!-- Actions -->
     <div class="mt-6 flex items-center justify-end gap-x-6">
       <button type="button" class="text-sm/6 font-semibold text-white">Cancel</button>
