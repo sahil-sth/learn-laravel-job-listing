@@ -23,6 +23,7 @@
                   type="text"
                   name="title"
                   placeholder="Shift Worker"
+                  value="{{ $job->title }}"
                   class="block min-w-0 grow bg-transparent py-1.5 pr-3 pl-1 px-3 text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-sm/6"
                   required
                 />
@@ -45,6 +46,7 @@
                   id="salary"
                   type="text"
                   name="salary"
+                  value="{{ $job->salary }}"
                   placeholder="$50,000"
                   class="block min-w-0 grow bg-transparent py-1.5 pr-3 pl-1 px-3 text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-sm/6"
                   required
@@ -58,27 +60,18 @@
         </div>
       </div>
     </div>
-    {{-- For group error messages --}}
-    {{--
-      <div class="mt-10">
-      @if ($errors->any())
-      <ul>
-      @foreach ($errors->all() as $error)
-      <li class="text-red-500 italic">{{ $error }}</li>
-      @endforeach
-      </ul>
-      @endif
-      </div>
-    --}}
+
     <!-- Actions -->
     <div class="mt-6 flex items-center justify-end gap-x-6">
-      <button type="button" class="text-sm/6 font-semibold text-white">Cancel</button>
+      <a type="button" href="/jobs/{{ $job->id }}" class="text-sm/6 font-semibold text-white">
+        Cancel
+      </a>
 
       <button
         type="submit"
         class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
       >
-        Save
+        Update
       </button>
     </div>
   </form>
