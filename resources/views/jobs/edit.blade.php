@@ -1,8 +1,9 @@
 <x-layout>
   <x-slot name="heading">Edit Job: {{ $job->title }}</x-slot>
 
-  <form method="POST" action="/jobs">
+  <form method="POST" action="/jobs/{{ $job->id }}">
     @csrf
+    @method('PATCH')
     <div class="space-y-12">
       <div class="border-b border-white/10 pb-12">
         <h2 class="text-base/7 font-semibold text-white">Enter the job information:</h2>

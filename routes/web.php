@@ -2,6 +2,7 @@
 
 use App\Models\Job;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Log;
 
 Route::get('/', function () {
     return view("home");
@@ -39,6 +40,40 @@ Route::post("/jobs", function(){
 });
 
 Route::get('/jobs/{id}', function ($id) {
+    $job = Job::find($id);
+    return view("jobs.show", ["job" => $job]);
+});
+
+// Update
+Route::patch('/jobs/{id}', function ($id) {
+   // Validate the user request
+   request()->validate([
+        "title" => ["required", "min:3"], 
+        "salary" => ["required"]
+   ]);
+
+   // Check Authorization: TODO
+   // find the record
+   $job = Job::findOrFail($id);
+
+   // Update record and persist
+   $job->update([
+    "title"=> request("title"),
+    "salary"=>request("salary")
+   ]);
+   $redirectUrl = "/jobs/" . $job->id;
+   Log::debug('UPDATE ROUTE HIT', [
+    'method' => request()->method(),
+    'path'   => request()->path(),
+    'id'     => $id,
+    'redirectUrl' => $redirectUrl
+    ]);
+   // Redirect to job specific page
+   return redirect($redirectUrl);
+});
+
+// Delete
+Route::delete('/jobs/{id}', function ($id) {
     $job = Job::find($id);
     return view("jobs.show", ["job" => $job]);
 });
