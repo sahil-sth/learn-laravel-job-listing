@@ -74,8 +74,16 @@ Route::patch('/jobs/{id}', function ($id) {
 
 // Delete
 Route::delete('/jobs/{id}', function ($id) {
-    $job = Job::find($id);
-    return view("jobs.show", ["job" => $job]);
+    // authorize TODO
+
+    // find the job by id
+    $job = Job::findOrFail($id);
+
+    // delete the job 
+    $job->delete();
+
+    // redirect
+    return redirect("/jobs");
 });
 
 Route::get('/jobs/{id}/edit', function ($id) {
