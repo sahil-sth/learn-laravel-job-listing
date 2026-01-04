@@ -63,17 +63,26 @@
     </div>
 
     <!-- Actions -->
-    <div class="mt-6 flex items-center justify-end gap-x-6">
-      <a type="button" href="/jobs/{{ $job->id }}" class="text-sm/6 font-semibold text-white">
-        Cancel
-      </a>
+    <div class="mt-6 flex items-center justify-between gap-x-6">
+      <div class="flex items-center">
+        <button class="text-sm text-red-500 font-bold" form="delete-form">Delete</button>
+      </div>
+      <div class="flex items-center gap-x-6">
+        <a type="button" href="/jobs/{{ $job->id }}" class="text-sm/6 font-semibold text-white">
+          Cancel
+        </a>
 
-      <button
-        type="submit"
-        class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-      >
-        Update
-      </button>
+        <button
+          type="submit"
+          class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+        >
+          Update
+        </button>
+      </div>
     </div>
+  </form>
+  <form id="delete-form" class="hidden" method="POST" action="/jobs/{{ $job->id }}">
+    @csrf
+    @method('DELETE')
   </form>
 </x-layout>
