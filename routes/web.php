@@ -1,92 +1,16 @@
 <?php
 
-use App\Models\Job;
+use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Log;
-
-Route::get('/', function () {
-    return view("home");
-});
-
-Route::get('/jobs', function () {
-   $jobs = Job::with("employer")->latest()->paginate(3);
-    return view('jobs.index', ["jobs"=>$jobs]);
-});
-
-Route::get('/about', function () {
-    return view('about');
-});
-
-Route::get('/contact', function () {
-    return view('contact');
-});
-
-Route::get("/jobs/create", function(){
-    return view("jobs.create");
-});
-
-Route::post("/jobs", function(){
-    request()->validate([
-        "title" => ["required", "min:3"], 
-        "salary" => ["required"]
-    ]);
-    Job::create([
-        "title" => request("title"), 
-        "salary" => request("salary"), 
-        "employer_id" => 1
-    ]);
-
-    return redirect("/jobs");
-});
-
-Route::get('/jobs/{id}', function ($id) {
-    $job = Job::find($id);
-    return view("jobs.show", ["job" => $job]);
-});
-
-// Update
-Route::patch('/jobs/{id}', function ($id) {
-   // Validate the user request
-   request()->validate([
-        "title" => ["required", "min:3"], 
-        "salary" => ["required"]
-   ]);
-
-   // Check Authorization: TODO
-   // find the record
-   $job = Job::findOrFail($id);
-
-   // Update record and persist
-   $job->update([
-    "title"=> request("title"),
-    "salary"=>request("salary")
-   ]);
-   $redirectUrl = "/jobs/" . $job->id;
-   Log::debug('UPDATE ROUTE HIT', [
-    'method' => request()->method(),
-    'path'   => request()->path(),
-    'id'     => $id,
-    'redirectUrl' => $redirectUrl
-    ]);
-   // Redirect to job specific page
-   return redirect($redirectUrl);
-});
-
-// Delete
-Route::delete('/jobs/{id}', function ($id) {
-    // authorize TODO
-
-    // find the job by id
-    $job = Job::findOrFail($id);
-
-    // delete the job 
-    $job->delete();
-
-    // redirect
-    return redirect("/jobs");
-});
-
-Route::get('/jobs/{id}/edit', function ($id) {
-    $job = Job::find($id);
-    return view("jobs.edit", ["job" => $job]);
-});
+// static routes
+Route::view("/", "home");
+Route::view("/about", "about");
+Route::view("/contact", "contact");
+// Job routes
+Route::get("/jobs", [JobController::class, "index"]);
+Route::get("/jobs/create", [JobController::class, "create"]);
+Route::post("/jobs", [JobController::class, "store"]);
+Route::get('/jobs/{id}', [JobController::class, "show"]);
+Route::patch('/jobs/{id}', [JobController::class, "update"]);
+Route::delete('/jobs/{id}', [JobController::class, "destroy"]);
+Route::get('/jobs/{id}/edit', [JobController::class, "edit"]);
