@@ -4,7 +4,6 @@ use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 // static routes
 Route::view("/", "home");
-Route::view("/about", "about");
 Route::view("/contact", "contact");
 // Job routes
 Route::get("/jobs", [JobController::class, "index"]);
