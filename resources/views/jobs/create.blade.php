@@ -22,8 +22,7 @@
 
           <!-- Salary -->
           <x-form-field>
-            <label for="salary" class="block text-sm/6 font-medium text-white">Salary</label>
-
+            <x-form-label for="salary">Salary</x-form-label>
             <div class="mt-2">
               <div
                 class="flex items-center rounded-md bg-white/5 pl-3 outline-1 -outline-offset-1 outline-white/10 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-500"
