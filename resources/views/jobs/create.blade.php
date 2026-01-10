@@ -36,9 +36,7 @@
                   placeholder="$50,000"
                   required/>
             </div>
-            @error('salary')
-              <p class="mt-4 text-xs font-semibold text-red-500">{{ $message }}</p>
-            @enderror
+            <x-form-error name="salary"/>
           </x-form-field>
         </div>
       </div>
