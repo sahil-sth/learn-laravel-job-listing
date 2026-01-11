@@ -9,4 +9,7 @@ class RegisteredUserController extends Controller
     function create(){
         return view("auth.register");
     }
+    function store(Request $request){
+        dd("TODO store in RegisteredUserController");
+    }
 }
