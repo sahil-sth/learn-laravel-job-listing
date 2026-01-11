@@ -10,6 +10,6 @@ class RegisteredUserController extends Controller
         return view("auth.register");
     }
     function store(Request $request){
-        dd("TODO store in RegisteredUserController");
+        dd(request()->all());
     }
 }
