@@ -62,7 +62,7 @@
                     <x-form-input   
                         id="password_confirmation"
                         name="password_confirmation"
-                        type="password_confirmation"
+                        type="password"
                         required/>
                 </div>
                 <x-form-error name="password_confirmation"/>
