@@ -32,18 +32,16 @@ class JobController extends Controller
         return redirect("/jobs");
     }
     // shows the specific job
-    public function show($id){
-        $job = Job::find($id);
+    public function show(Job $job){
         return view("jobs.show", ["job" => $job]);
     }
     // shows the edit job page
-    public function edit($id){
-        $job = Job::findOrFail($id);
+    public function edit(Job $job){
         Gate::authorize("edit-job", $job);
         return view("jobs.edit", ["job" => $job]);
     }
     // actually edits the job
-    public function update($id){
+    public function update(Job $job){
         // Validate the user request
         request()->validate([
                 "title" => ["required", "min:3"], 
@@ -51,8 +49,6 @@ class JobController extends Controller
         ]);
 
         // Check Authorization: TODO
-        // find the record
-        $job = Job::findOrFail($id);
 
         // Update record and persist
         $job->update([
@@ -66,11 +62,8 @@ class JobController extends Controller
 
     }
 
-    public function destroy($id){
+    public function destroy(Job $job){
         // authorize TODO
-
-        // find the job by id
-        $job = Job::findOrFail($id);
 
         // delete the job 
         $job->delete();

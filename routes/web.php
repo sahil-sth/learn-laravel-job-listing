@@ -8,21 +8,19 @@ use Illuminate\Support\Facades\Route;
 Route::view("/", "home");
 Route::view("/contact", "contact");
 // Job routes
-// Route::controller(JobController::class)->group(function(){
-//     Route::get("/jobs",  "index");
-//     Route::get("/jobs/create",  "create");
-//     Route::post("/jobs",  "store");
-//     Route::get('/jobs/{id}',  "show");
-//     Route::patch('/jobs/{id}',  "update");
-//     Route::delete('/jobs/{id}',  "destroy");
-//     Route::get('/jobs/{id}/edit',  "edit");
-// });
-// for jobs
-Route::resource("jobs", JobController::class); // automatically creates what we have up 
+Route::controller(JobController::class)->group(function(){
+    Route::get("/jobs",  "index");
+    Route::get("/jobs/create",  "create");
+    Route::post("/jobs",  "store");
+    Route::get('/jobs/{job}',  "show");
+    Route::patch('/jobs/{job}',  "update");
+    Route::delete('/jobs/{job}',  "destroy");
+    Route::get('/jobs/{job}/edit',  "edit");
+});
 // for registering the user
 Route::get("/register", [RegisteredUserController::class, "create"]);
 Route::post("/register", [RegisteredUserController::class, "store"]);
 // session controller
-Route::get("/login", [SessionController::class, "create"]);
+Route::get("/login", [SessionController::class, "create"])->name("login");
 Route::post("/login", [SessionController::class, "store"]);
 Route::post("/logout", [SessionController::class, "destroy"]);
