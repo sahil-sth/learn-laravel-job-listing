@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class JobController extends Controller
 { 
@@ -36,7 +38,8 @@ class JobController extends Controller
     }
     // shows the edit job page
     public function edit($id){
-        $job = Job::find($id);
+        $job = Job::findOrFail($id);
+        Gate::authorize("edit-job", $job);
         return view("jobs.edit", ["job" => $job]);
     }
     // actually edits the job
