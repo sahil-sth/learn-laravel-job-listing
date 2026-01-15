@@ -11,11 +11,17 @@ Route::view("/contact", "contact");
 Route::controller(JobController::class)->group(function(){
     Route::get("/jobs",  "index");
     Route::get("/jobs/create",  "create");
-    Route::post("/jobs",  "store");
+    Route::post("/jobs",  "store")->middleware("auth");
     Route::get('/jobs/{job}',  "show");
-    Route::patch('/jobs/{job}',  "update");
-    Route::delete('/jobs/{job}',  "destroy");
-    Route::get('/jobs/{job}/edit',  "edit");
+    Route::patch('/jobs/{job}',  "update")
+        ->middleware("auth")
+        ->can("edit-job", "job");
+    Route::delete('/jobs/{job}',  "destroy")
+        ->middleware("auth")
+        ->can("edit-job", "job");
+    Route::get('/jobs/{job}/edit',  "edit")
+        ->middleware("auth")
+        ->can("edit-job", "job");;
 });
 // for registering the user
 Route::get("/register", [RegisteredUserController::class, "create"]);
