@@ -15,13 +15,13 @@ Route::controller(JobController::class)->group(function(){
     Route::get('/jobs/{job}',  "show");
     Route::patch('/jobs/{job}',  "update")
         ->middleware("auth")
-        ->can("edit-job", "job");
+        ->can("edit", "job");
     Route::delete('/jobs/{job}',  "destroy")
         ->middleware("auth")
-        ->can("edit-job", "job");
+        ->can("edit", "job");
     Route::get('/jobs/{job}/edit',  "edit")
-        ->middleware("auth")
-        ->can("edit-job", "job");;
+        ->middleware("auth");
+        // ->can("edit", "job");
 });
 // for registering the user
 Route::get("/register", [RegisteredUserController::class, "create"]);
