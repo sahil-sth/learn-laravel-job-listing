@@ -5,7 +5,13 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
-
+// test route
+Route::get("/test", function(){
+    dispatch(function() {
+        logger("Hello from the queue");
+    });
+    return "Test done";
+});
 // static routes
 Route::view("/", "home");
 Route::view("/contact", "contact");
