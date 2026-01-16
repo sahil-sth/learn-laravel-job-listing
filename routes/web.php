@@ -1,16 +1,17 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Mail;
+use App\Models\Job;
+use App\Jobs\TranslateJob;
 // test route
 Route::get("/test", function(){
-    dispatch(function() {
-        logger("Hello from the queue");
-    });
-    return "Test done";
+    $job = Job::first();
+    TranslateJob::dispatch($job);
+    return "Done";
 });
 // static routes
 Route::view("/", "home");
